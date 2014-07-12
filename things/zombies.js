@@ -63,7 +63,7 @@ Zombies.prototype.spawn = function () {
 
 Zombies.prototype.move = function () {
     _.each(this.horde.children, function (zombie) {
-        if (helicopter.y > game.height - 50) {
+        if (helicopter.helicopterLanded) {
             return this.moveToHelicopter(zombie);
         }
         return this.moveRandomly(zombie);

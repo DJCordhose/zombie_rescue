@@ -5,6 +5,9 @@ var createTanks = function () {
     }
 }
 
+var TANK_SPEED = 20;
+var SHOT_DELAY_MS = 2000;
+
 function Tank(game, helicopter, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'tank');
     this.game = game;
@@ -26,7 +29,7 @@ function Tank(game, helicopter, x, y) {
     this.frame = 2;
 
     var timer = game.time.create(false);
-    timer.loop(1000, Tank.prototype.shoot, this);
+    timer.loop(SHOT_DELAY_MS, Tank.prototype.shoot, this);
     timer.start();
 }
 Tank.prototype = Object.create(Phaser.Sprite.prototype);
@@ -34,6 +37,13 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
     this.game.physics.arcade.overlap(this, this.helicopter, this.helicopterHit, null, this);
+    if (this.helicopter.helicopterLanded) {
+        this.moveToHelicopter();
+    } else {
+        this.frame = 2;
+        this.animations.stop();
+        this.body.velocity.x = 0;
+    }
 };
 
 Tank.prototype.helicopterHit = function (tank, helicopter) {
@@ -64,3 +74,14 @@ Tank.prototype.shoot = function () {
     var shot = new Shot(game, this, this.helicopter, this.position.x, turretY, degree);
     game.add.existing(shot);
 };
+
+Tank.prototype.moveToHelicopter = function () {
+    if (this.position.x < this.helicopter.position.x) {
+        this.body.velocity.x = TANK_SPEED;
+        this.animations.play('moveRight');
+    } else {
+        this.body.velocity.x = -TANK_SPEED;
+        this.animations.play('moveLeft');
+    }
+};
+
