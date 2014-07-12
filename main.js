@@ -18,12 +18,8 @@ var main_state = {
     create: function () {
         game.world.setBounds(0, 0, 12000, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-<<<<<<< HEAD
-    
-=======
-        game.physics.setBoundsToWorld();
 
->>>>>>> 59b19d1fe01fadc05b38171313e6660db5968ed2
+        game.physics.setBoundsToWorld();
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -32,7 +28,7 @@ var main_state = {
         game.physics.enable(helicopter, Phaser.Physics.ARCADE);
         helicopter.body.checkCollision.any = true;
         helicopter.body.collideWorldBounds = true;
-        helicopter.body.setSize(37, 37);
+        helicopter.body.setSize(100, 100);
 
         var zombieXPosition = game.width / 2;
         zombie = game.add.sprite(zombieXPosition, game.height - 50, 'zombie');
@@ -42,7 +38,7 @@ var main_state = {
         zombie.body.velocity.x = -100;
         zombie.body.checkCollision.any = true;
         zombie.body.collideWorldBounds = true;
-        zombie.body.setSize(37, 37);
+        zombie.body.setSize(100, 100);
 
         introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
         introText.anchor.setTo(0.5, 0.5);
@@ -76,6 +72,7 @@ var main_state = {
     update: function () {
 
         if (!isGameOver) {
+            game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
 
             moveZombie();
 
@@ -95,20 +92,26 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-
             }
         }
     },
 
     render: function () {
         if (showDebugInfos) {
-            game.debug.body(frog);
-            game.debug.spriteInfo(frog);
+            game.debug.body(helicopter);
+            game.debug.spriteInfo(helicopter);
         }
     }
 }
 
 function moveZombie() {
+    if (helicopter.y > game.height - 50) {
+        if (zombie.x < helicopter.x) {
+            zombie.body.velocity.x = 50;
+        } else if (zombie.x > helicopter.x) {
+            zombie.body.velocity.x = -50;
+        }
+    } else {
     if (zombie.x < 100) {
         zombie.x = 110; 
         zombie.body.velocity.x = zombie.body.velocity.x * -1;
@@ -117,4 +120,8 @@ function moveZombie() {
         zombie.body.velocity.x = zombie.body.velocity.x * -1;
     }
 }
+}
 
+function zombiePickedUp() {
+    zombie.visible = false;
+}
