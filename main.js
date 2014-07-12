@@ -4,6 +4,8 @@ var showDebugInfos = false;
 var currentLevel = 7;
 var score = 0;
 var lives = 3;
+var helicopterLanded = false;
+var helicopterDirection;
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
@@ -48,8 +50,17 @@ var main_state = {
         if (!isGameOver) {
             game.physics.arcade.overlap(helicopter, zombies, zombiePickedUp, null, this);
 
-
             moveZombie();
+
+            if (helicopter.y > game.height - 50) {
+                helicopter.animations.stop();
+                helicopterLanded = true;
+            } else {
+                if (helicopterLanded == true) {
+                    helicopter.animations.play('left');
+                    helicopterLanded = false;
+                }
+            }
 
             if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                 helicopter.y -= 5;
@@ -57,10 +68,12 @@ var main_state = {
             else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                 helicopter.x -= 5;
                 helicopter.animations.play('left');
+                helicopterDirection = 'left';
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                 helicopter.x += 5;
                 helicopter.animations.play('right');
+                helicopterDirection = 'right';
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
                 helicopter.y += 5;
