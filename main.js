@@ -5,7 +5,7 @@ var currentLevel = 7;
 var score = 0;
 var lives = 3;
 var helicopterLanded = false;
-var helicopterDirection;
+var helicopterDirection = 'left';
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
@@ -36,12 +36,19 @@ var main_state = {
         sfx.addMarker('squit', 19, 0.3);
 
         this.sfx = sfx;
+
+        this.zombieAudio = game.add.audio('zombie_audio');
+        this.zombieAudio.addMarker('growl', 0.7, 1.9);
+
+        this.zombieAudio.play('growl');
+
     },
 
     update: function () {
 
         if (!isGameOver) {
-            game.physics.arcade.overlap(helicopter, zombies, zombiePickedUp, null, this);
+            game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
+            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
 
             moveZombie();
 
@@ -50,7 +57,7 @@ var main_state = {
                 helicopterLanded = true;
             } else {
                 if (helicopterLanded == true) {
-                    helicopter.animations.play('left');
+                    helicopter.animations.play(helicopterDirection);
                     helicopterLanded = false;
                 }
             }
@@ -75,7 +82,12 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-            }
+            } 
         }
+    },
+
+    helicopterZombieCollision: function (helicopter, zombie) {
+        this.sfx.play('ping');
+        this.zombieAudio.play('growl');
     }
 }
