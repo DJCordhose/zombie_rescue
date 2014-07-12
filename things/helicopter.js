@@ -10,7 +10,9 @@ var createHelicopter = function () {
     game.physics.enable(helicopter, Phaser.Physics.ARCADE);
     helicopter.body.checkCollision.any = true;
     helicopter.body.collideWorldBounds = true;
-    helicopter.body.setSize(37, 37);
+    helicopter.body.setSize(96, 48);
+    helicopter.animations.add('left', [0, 1], 10, true);
+    helicopter.animations.add('right', [3, 4], 10, true);
 
     game.camera.follow(helicopter);
 }

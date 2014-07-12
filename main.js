@@ -54,20 +54,22 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                 helicopter.y -= 5;
             }
-            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                 helicopter.x -= 5;
+                helicopter.animations.play('left');
             }
-            if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                 helicopter.x += 5;
+                helicopter.animations.play('right');
             }
-            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
                 helicopter.y += 5;
             }
         } else {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-            }
+            } 
         }
     },
 
