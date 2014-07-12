@@ -18,8 +18,10 @@ function Tank(game, helicopter, x, y) {
     this.body.immovable = true;
     this.body.setSize(50, 50);
 
-    this.animations.add('left', [0, 1], 10, true);
-    this.animations.add('right', [3, 4], 10, true);
+    this.animations.add('moveLeft', [0, 1], 10, true);
+    this.animations.add('left', [1], 10, true);
+    this.animations.add('moveRight', [3, 4], 10, true);
+    this.animations.add('right', [3], 10, true);
 
     this.frame = 2;
 
