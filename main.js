@@ -19,6 +19,7 @@ var main_state = {
         createBase();
         createZombies();
         createTexts();
+        createTanks();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
