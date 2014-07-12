@@ -48,6 +48,6 @@ Tank.prototype.shoot = function () {
 
     var degree = game.physics.arcade.angleBetween(this, this.helicopter);
 
-    var shot = new Shot(game, this.helicopter, this.position.x, turretY, degree);
+    var shot = new Shot(game, this, this.helicopter, this.position.x, turretY, degree);
     game.add.existing(shot);
 };
