@@ -24,6 +24,7 @@ var main_state = {
         createBase();
         createTexts();
         createTanks();
+        createPlane();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
@@ -42,6 +43,7 @@ var main_state = {
 
         this.sfx = sfx;
 
+        game.time.events.add(Phaser.Timer.SECOND * 10, createPlane, this);
     },
 
     update: function () {
