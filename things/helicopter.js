@@ -11,4 +11,6 @@ var createHelicopter = function () {
     helicopter.body.checkCollision.any = true;
     helicopter.body.collideWorldBounds = true;
     helicopter.body.setSize(37, 37);
+
+    game.camera.follow(helicopter);
 }
