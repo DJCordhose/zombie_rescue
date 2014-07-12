@@ -3,23 +3,20 @@ var zombie;
 var introText;
 var levelText;
 var lifesText;
-var rescueText;
 var isGameOver = false;
 
 var showDebugInfos = false;
 
-var currentLevel = 1;
+var currentLevel = 7;
 var lifes = 3;
-var currentRescue = 0;
-var rescues = 0;
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
     create: function () {
         game.world.setBounds(0, 0, 12000, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
         game.physics.setBoundsToWorld();
+        game.add.tileSprite(0, 0, 12000, 600, 'background');
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -45,17 +42,12 @@ var main_state = {
         introText.visible = false;
 
         var currentLevelText = 'Level: ' + currentLevel;
-        levelText = game.add.text(game.world.width/7*4, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
+        levelText = game.add.text(game.world.width/5*3, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         levelText.anchor.setTo(0.5, 0.5);
         levelText.visible = true;
 
-        var rescueText = 'Rescues: ' + currentRescue;
-        rescueText = game.add.text(game.world.width/7*5, 20, rescueText, { font: "18px Arial", fill: "#ffffff", align: "center" });
-        rescueText.anchor.setTo(0.5, 0.5);
-        rescueText.visible = true;
-
         var lifeLevelText = 'Lifes: ' + lifes;
-        lifesText = game.add.text(game.world.width/7*6, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
+        lifesText = game.add.text(game.world.width/5*4, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         lifesText.anchor.setTo(0.5, 0.5);
         lifesText.visible = true;
 
@@ -92,15 +84,14 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-            }
-        }
     },
 
     render: function () {
         if (showDebugInfos) {
             game.debug.body(helicopter);
             game.debug.spriteInfo(helicopter);
-        }
+        game.debug.cameraInfo(game.camera, 32, 32);
+        game.debug.spriteCoords(helicopter, 32, 500);   
     }
 }
 
