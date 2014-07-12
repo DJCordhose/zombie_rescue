@@ -2,7 +2,8 @@ var load_state = {
     preload: function() { 
         this.game.stage.backgroundColor = '#71c5cf';
         game.load.image('helicopter', 'assets/helicopter.png');
-        game.load.image('zombie', 'assets/zombie.png');
+        game.load.image('base', 'assets/house.png');
+        game.load.image('zombie', 'assets/zombie/zombie_0.png');
         game.load.image('background', 'assets/bg.png');
 
         game.load.audio('sfx', [ 'assets/sounds/fx_mixdown.mp3', 'assets/sounds/fx_mixdown.ogg' ], true);

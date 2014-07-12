@@ -14,6 +14,7 @@ var main_state = {
         game.add.tileSprite(0, 0, 12000, 600, 'background');
 
         createHelicopter();
+        createBase();
         createZombies();
         createTexts();
 
