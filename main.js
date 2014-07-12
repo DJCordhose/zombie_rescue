@@ -20,15 +20,7 @@ var main_state = {
 //        game.add.sprite(0, 0, 'background');
         game.add.tileSprite(0, 0, 12000, 600, 'background');
 
-        var helicopterYPosition = game.height / 2;
-        var helicopterXPosition = game.width / 2;
-        helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
-        helicopter.anchor.setTo(0.5, 0.5);
-        helicopter.checkWorldBounds = true;
-        game.physics.enable(helicopter, Phaser.Physics.ARCADE);
-        helicopter.body.checkCollision.any = true;
-        helicopter.body.collideWorldBounds = true;
-        helicopter.body.setSize(37, 37);
+        createHelicopter();
 
         var zombieXPosition = game.width / 2;
         zombie = game.add.sprite(zombieXPosition, game.height - 50, 'zombie');
@@ -56,8 +48,6 @@ var main_state = {
 
          // No 'this.score', but just 'score'
         score = 0;
-
-        game.camera.follow(helicopter);
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
@@ -99,7 +89,7 @@ var main_state = {
 
 function moveZombie() {
     if (zombie.x < 100) {
-        zombie.x = 110; 
+        zombie.x = 110;
         zombie.body.velocity.x = zombie.body.velocity.x * -1;
     } else if (zombie.x > 700) {
         zombie.x = 690;
