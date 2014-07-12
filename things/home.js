@@ -1,11 +1,19 @@
-var base;
-var position = 20;
+var Home = function (position) {
+        return this.build(position);
+    };
 
-var createHome = function() {
-    base = game.add.sprite(position, game.height - 60, 'base');
-    base.anchor.setTo(0.5, 0.5);
-    base.checkWorldBounds = true;
-    game.physics.enable(base, Phaser.Physics.ARCADE);
-    base.body.checkCollision.any = true;
-    base.body.setSize(48, 48);
+Home.prototype.build = function (position) {
+    var building = game.add.sprite(position, this.getGround(), 'base');
+
+    building.anchor.setTo(0.5, 0.5);
+    building.checkWorldBounds = true;
+    game.physics.enable(building, Phaser.Physics.ARCADE);
+    building.body.checkCollision.any = true;
+    building.body.setSize(48, 48);
+
+    return building;
 }
+
+Home.prototype.getGround = function () {
+    return game.height - 60;
+};

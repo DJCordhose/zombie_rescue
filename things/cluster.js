@@ -6,8 +6,5 @@ var createClusters = function (clusterOptions) {
 };
 
 var createCluster = function (options) {
-    clusters.push({zombies: new Zombies(options)})
-
-    //createZombies(cluster);
-    //createHome(cluster.position);
+    clusters.push({home: new Home(options.homePosition), zombies: new Zombies(options)});
 };
