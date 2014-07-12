@@ -20,6 +20,7 @@ var main_state = {
         createZombies();
         createTexts();
         createTanks();
+        createPlane();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
@@ -42,6 +43,8 @@ var main_state = {
         this.zombieAudio.addMarker('growl', 0.7, 1.9);
 
         this.zombieAudio.play('growl');
+
+        game.time.events.add(Phaser.Timer.SECOND * 10, createPlane, this);
 
     },
 
