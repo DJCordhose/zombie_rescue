@@ -6,6 +6,10 @@ var score = 0;
 var lives = 3;
 var helicopterLanded = false;
 var helicopterDirection = 'left';
+var clusters = [
+        {homePosition: 200, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
+        {homePosition: 600, numberOfZombies: 10, zombieOffset: 100, zombieRoamingDistance: 300}
+    ];
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
@@ -16,8 +20,8 @@ var main_state = {
         game.add.tileSprite(0, 0, 12000, 600, 'background');
 
         createHelicopter();
+        createClusters(clusters);
         createBase();
-        createZombies();
         createTexts();
         createTanks();
 
@@ -38,20 +42,15 @@ var main_state = {
 
         this.sfx = sfx;
 
-        this.zombieAudio = game.add.audio('zombie_audio');
-        this.zombieAudio.addMarker('growl', 0.7, 1.9);
-
-        this.zombieAudio.play('growl');
-
     },
 
     update: function () {
 
         if (!isGameOver) {
-            game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
-            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
-
-            moveZombie();
+            _.each(window.clusters, function (cluster) {
+                game.physics.arcade.overlap(helicopter, cluster.zombies.horde, cluster.zombies.pickUp, null, cluster.zombies);
+                cluster.zombies.move();
+            });
 
             if (helicopter.y > game.height - 60) {
                 helicopter.animations.stop();
@@ -116,10 +115,5 @@ var main_state = {
         } else {
             helicopter.angle = 20;
         }
-    },
-
-    helicopterZombieCollision: function (helicopter, zombie) {
-        this.sfx.play('ping');
-        this.zombieAudio.play('growl');
     }
 }
