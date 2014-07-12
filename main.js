@@ -17,6 +17,7 @@ var main_state = {
         createBase();
         createZombies();
         createTexts();
+        createTanks();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
@@ -34,6 +35,12 @@ var main_state = {
         sfx.addMarker('squit', 19, 0.3);
 
         this.sfx = sfx;
+
+        this.zombieAudio = game.add.audio('zombie_audio');
+        this.zombieAudio.addMarker('growl', 0.7, 1.9);
+
+        this.zombieAudio.play('growl');
+
     },
 
     update: function () {
