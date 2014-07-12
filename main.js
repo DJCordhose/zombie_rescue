@@ -16,8 +16,14 @@ var rescues = 0;
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
     create: function () {
+        game.world.setBounds(0, 0, 12000, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
+<<<<<<< HEAD
     
+=======
+        game.physics.setBoundsToWorld();
+
+>>>>>>> 59b19d1fe01fadc05b38171313e6660db5968ed2
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -58,7 +64,13 @@ var main_state = {
         lifesText.visible = true;
 
          // No 'this.score', but just 'score'
-        score = 0; 
+        score = 0;
+
+        game.camera.follow(helicopter);
+
+        // And finally we tell Phaser to add and start our 'main' state
+        game.state.add('main', main_state);
+        game.state.start('main');
     },
 
     update: function () {
@@ -106,6 +118,3 @@ function moveZombie() {
     }
 }
 
-// And finally we tell Phaser to add and start our 'main' state
-game.state.add('main', main_state);
-game.state.start('main');  
