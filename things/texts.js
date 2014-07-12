@@ -18,6 +18,7 @@ var createTexts = function () {
 
     textSprite.addChild(scoreText);
     textSprite.addChild(livesText);
+    textSprite.addChild(gameOverText);
 
     scoreText.postUpdate = function () {
         this.text = scoreMessage + score;
