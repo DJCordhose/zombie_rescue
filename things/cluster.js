@@ -1,5 +1,3 @@
-
-
 var createClusters = function (clusterOptions) {
     window.clusters = [];
     _.each(clusterOptions, createCluster);

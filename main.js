@@ -6,7 +6,18 @@ var score = 0;
 var lives = 3;
 var clusters = [
         {homePosition: 400, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
-        {homePosition: 900, numberOfZombies: 10, zombieOffset: 150, zombieRoamingDistance: 300}
+        {homePosition: 1200, numberOfZombies: 10, zombieOffset: 150, zombieRoamingDistance: 300},
+        {homePosition: 1600, numberOfZombies: 3, zombieOffset: 150, zombieRoamingDistance: 400},
+        {homePosition: 1700, numberOfZombies: 2, zombieOffset: 20, zombieRoamingDistance: 30},
+        {homePosition: 2400, numberOfZombies: 10, zombieOffset: 200, zombieRoamingDistance: 800},
+        {homePosition: 4300, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 400},
+        {homePosition: 5600, numberOfZombies: 2, zombieOffset: 100, zombieRoamingDistance: 500},
+        {homePosition: 6000, numberOfZombies: 4, zombieOffset: 250, zombieRoamingDistance: 800},
+        {homePosition: 6600, numberOfZombies: 8, zombieOffset: 150, zombieRoamingDistance: 300},
+        {homePosition: 7400, numberOfZombies: 12, zombieOffset: 380, zombieRoamingDistance: 200},
+        {homePosition: 8200, numberOfZombies: 20, zombieOffset: 420, zombieRoamingDistance: 1000},
+        {homePosition: 9400, numberOfZombies: 4, zombieOffset: 420, zombieRoamingDistance: 800},
+        {homePosition: 10100, numberOfZombies: 20, zombieOffset: 20, zombieRoamingDistance: 400}
     ];
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.

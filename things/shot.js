@@ -28,11 +28,11 @@ Shot.prototype.update = function () {
 Shot.prototype.helicopterHit = function (shot, helicopter) {
     var explosion = new Explosion(game, helicopter, helicopter.x, helicopter.y);
     game.add.existing(explosion);
-    this.kill();
-};
+    shot.kill();
+    lives -= 1;
 
-Shot.prototype.explode = function () {
-    var explosion = new Explosion(game, this, this.x, this.y);
-    game.add.existing(explosion);
+    if (lives === 0) {
+        helicopter.kill();
+        isGameOver = true;
+    }
 };
-
