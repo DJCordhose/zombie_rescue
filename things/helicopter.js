@@ -13,6 +13,7 @@ var createHelicopter = function () {
     helicopter.body.setSize(96, 48);
     helicopter.animations.add('left', [0, 1], 10, true);
     helicopter.animations.add('right', [3, 4], 10, true);
+    helicopter.animations.play('left');
 
     game.camera.follow(helicopter);
 }
