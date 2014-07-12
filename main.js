@@ -17,6 +17,9 @@ var main_state = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.setBoundsToWorld();
 
+//        game.add.sprite(0, 0, 'background');
+        game.add.tileSprite(0, 0, 12000, 600, 'background');
+
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -42,16 +45,16 @@ var main_state = {
         introText.visible = false;
 
         var currentLevelText = 'Level: ' + currentLevel;
-        levelText = game.add.text(game.world.width/5*3, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
+        levelText = game.add.text(100, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         levelText.anchor.setTo(0.5, 0.5);
         levelText.visible = true;
 
         var lifeLevelText = 'Lifes: ' + lifes;
-        lifesText = game.add.text(game.world.width/5*4, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
+        lifesText = game.add.text(game.world.width / 5 * 4, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         lifesText.anchor.setTo(0.5, 0.5);
         lifesText.visible = true;
 
-         // No 'this.score', but just 'score'
+        // No 'this.score', but just 'score'
         score = 0;
 
         game.camera.follow(helicopter);
@@ -83,23 +86,22 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-
-                resetFrog(frog);
             }
         }
     },
 
     render: function () {
         if (showDebugInfos) {
-            game.debug.body(frog);
-            game.debug.spriteInfo(frog);
+            game.debug.cameraInfo(game.camera, 32, 32);
+            game.debug.spriteCoords(helicopter, 32, 500);
+
         }
     }
 }
 
 function moveZombie() {
     if (zombie.x < 100) {
-        zombie.x = 110; 
+        zombie.x = 110;
         zombie.body.velocity.x = zombie.body.velocity.x * -1;
     } else if (zombie.x > 700) {
         zombie.x = 690;

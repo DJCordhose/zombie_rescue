@@ -3,6 +3,7 @@ var load_state = {
         this.game.stage.backgroundColor = '#71c5cf';
         game.load.image('helicopter', 'assets/helicopter.png');
         game.load.image('zombie', 'assets/zombie.png');
+        game.load.image('background', 'assets/bg.png');
     },
 
     create: function() {
