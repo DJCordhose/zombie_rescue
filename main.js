@@ -89,5 +89,6 @@ function moveZombie() {
 }
 
 function zombiePickedUp() {
-    zombie.visible = false;
+    zombie.kill();
+    score += 1;
 }
