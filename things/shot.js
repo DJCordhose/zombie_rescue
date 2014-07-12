@@ -20,8 +20,9 @@ Shot.prototype.update = function () {
     this.game.physics.arcade.overlap(this, this.helicopter, this.helicopterHit, null, this);
 
     var distanceX = Math.abs(this.origin.x - this.x);
-    if (distanceX >= 100) {//game.camera.width / 2) {
-        this.explode();
+    if (distanceX >= game.camera.width / 2) {
+        var explosion = new Explosion(game, helicopter, helicopter.x, helicopter.y);
+        game.add.existing(explosion);
     }
 };
 
