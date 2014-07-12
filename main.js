@@ -5,8 +5,8 @@ var currentLevel = 7;
 var score = 0;
 var lives = 3;
 var clusters = [
-        {homePosition: 200, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
-        {homePosition: 600, numberOfZombies: 10, zombieOffset: 100, zombieRoamingDistance: 300}
+        {homePosition: 400, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
+        {homePosition: 900, numberOfZombies: 10, zombieOffset: 150, zombieRoamingDistance: 300}
     ];
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
@@ -22,7 +22,7 @@ var main_state = {
         createBase();
         createTexts();
         createTanks();
-        createPlane();
+        // createPlane();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
@@ -41,7 +41,7 @@ var main_state = {
 
         this.sfx = sfx;
 
-        game.time.events.add(Phaser.Timer.SECOND * 10, createPlane, this);
+        // game.time.events.add(Phaser.Timer.SECOND * 10, createPlane, this);
     },
 
     update: function () {

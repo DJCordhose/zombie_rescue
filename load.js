@@ -6,7 +6,7 @@ var load_state = {
         game.load.spritesheet('zombie', 'assets/zombi_map48x48.png', 48, 48);
         game.load.image('plane', 'assets/plane.png');
         game.load.image('base', 'assets/basis.png');
-        game.load.image('home', 'assets/home.png');
+        game.load.image('home', 'assets/house.png');
         game.load.image('background', 'assets/bg.png');
         game.load.image('shot', 'assets/shot.png');
         game.load.image('explosion', 'assets/explosion.png');
