@@ -6,6 +6,10 @@ var score = 0;
 var lives = 3;
 var helicopterLanded = false;
 var helicopterDirection = 'left';
+var clusters = [
+        {homePosition: 200, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
+        {homePosition: 600, numberOfZombies: 10, zombieOffset: 100, zombieRoamingDistance: 300}
+    ];
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
@@ -16,8 +20,8 @@ var main_state = {
         game.add.tileSprite(0, 0, 12000, 600, 'background');
 
         createHelicopter();
+        createClusters(clusters);
         createBase();
-        createZombies();
         createTexts();
         createTanks();
         createPlane();
@@ -39,26 +43,21 @@ var main_state = {
 
         this.sfx = sfx;
 
-        this.zombieAudio = game.add.audio('zombie_audio');
-        this.zombieAudio.addMarker('growl', 0.7, 1.9);
-
-        this.zombieAudio.play('growl');
-
         game.time.events.add(Phaser.Timer.SECOND * 10, createPlane, this);
-
     },
 
     update: function () {
 
         if (!isGameOver) {
-            game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
-            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
+            _.each(window.clusters, function (cluster) {
+                game.physics.arcade.overlap(helicopter, cluster.zombies.horde, cluster.zombies.pickUp, null, cluster.zombies);
+                cluster.zombies.move();
+            });
 
-            moveZombie();
-
-            if (helicopter.y > game.height - 50) {
+            if (helicopter.y > game.height - 60) {
                 helicopter.animations.stop();
                 helicopterLanded = true;
+                helicopter.angle = 0;
             } else {
                 if (helicopterLanded == true) {
                     helicopter.animations.play(helicopterDirection);
@@ -66,32 +65,57 @@ var main_state = {
                 }
             }
 
-            if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                helicopter.y -= 5;
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !helicopterLanded) {
                 helicopter.x -= 5;
                 helicopter.animations.play('left');
                 helicopterDirection = 'left';
+                helicopter.angle = 0;
             }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+
+            if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !helicopterLanded) {
                 helicopter.x += 5;
                 helicopter.animations.play('right');
                 helicopterDirection = 'right';
+                helicopter.angle = 0;
             }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-                helicopter.y += 5;
+
+            if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.moveUp(helicopter, helicopterDirection);
+            }
+
+            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !helicopterLanded) {
+                // helicopter.y += 5;
+                this.moveDown(helicopter, helicopterDirection, helicopterLanded);
             }
         } else {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-            } 
+            }
         }
     },
 
-    helicopterZombieCollision: function (helicopter, zombie) {
-        this.sfx.play('ping');
-        this.zombieAudio.play('growl');
+    moveUp: function (helicopter, helicopterDirection) {
+        helicopter.y -= 5;
+
+        if (helicopterDirection === 'left') {
+            helicopter.angle = 20;
+        } else {
+            helicopter.angle = -20;
+        }
+    },
+
+    moveDown: function (helicopter, helicopterDirection, helicopterLanded) {
+        if (helicopterLanded) {
+            return;
+        }
+
+        helicopter.y += 5;
+
+        if (helicopterDirection === 'left') {
+            helicopter.angle = -20;
+        } else {
+            helicopter.angle = 20;
+        }
     }
 }
