@@ -17,6 +17,9 @@ var main_state = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.setBoundsToWorld();
 
+//        game.add.sprite(0, 0, 'background');
+        game.add.tileSprite(0, 0, 12000, 600, 'background');
+
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -90,11 +93,8 @@ var main_state = {
     },
 
     render: function () {
-        if (showDebugInfos) {
-            game.debug.body(frog);
-            game.debug.spriteInfo(frog);
-        }
-    }
+        game.debug.cameraInfo(game.camera, 32, 32);
+        game.debug.spriteCoords(helicopter, 32, 500);    }
 }
 
 function moveZombie() {
