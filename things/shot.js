@@ -27,13 +27,12 @@ Shot.prototype.update = function () {
 };
 
 Shot.prototype.helicopterHit = function (shot, helicopter) {
-    var explosion = new Explosion(game, helicopter, helicopter.x, helicopter.y);
-    game.add.existing(explosion);
     shot.kill();
     lives -= 1;
 
     if (lives === 0) {
-        helicopter.kill();
         isGameOver = true;
+        var explosion = new Explosion(game, helicopter, helicopter.x, helicopter.y);
+        game.add.existing(explosion);
     }
 };
