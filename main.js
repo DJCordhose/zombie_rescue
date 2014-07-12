@@ -4,8 +4,6 @@ var showDebugInfos = false;
 var currentLevel = 7;
 var score = 0;
 var lives = 3;
-var helicopterLanded = false;
-var helicopterDirection = 'left';
 var clusters = [
         {homePosition: 200, numberOfZombies: 3, zombieOffset: 50, zombieRoamingDistance: 100},
         {homePosition: 600, numberOfZombies: 10, zombieOffset: 100, zombieRoamingDistance: 300}
@@ -56,36 +54,36 @@ var main_state = {
 
             if (helicopter.y > game.height - 60) {
                 helicopter.animations.stop();
-                helicopterLanded = true;
+                helicopter.helicopterLanded = true;
                 helicopter.angle = 0;
             } else {
-                if (helicopterLanded == true) {
-                    helicopter.animations.play(helicopterDirection);
-                    helicopterLanded = false;
+                if (helicopter.helicopterLanded) {
+                    helicopter.animations.play(helicopter.helicopterDirection);
+                    helicopter.helicopterLanded = false;
                 }
             }
 
-            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !helicopterLanded) {
+            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !helicopter.helicopterLanded) {
                 helicopter.x -= 5;
                 helicopter.animations.play('left');
-                helicopterDirection = 'left';
+                helicopter.helicopterDirection = 'left';
                 helicopter.angle = 0;
             }
 
-            if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !helicopterLanded) {
+            if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !helicopter.helicopterLanded) {
                 helicopter.x += 5;
                 helicopter.animations.play('right');
-                helicopterDirection = 'right';
+                helicopter.helicopterDirection = 'right';
                 helicopter.angle = 0;
             }
 
             if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                this.moveUp(helicopter, helicopterDirection);
+                this.moveUp(helicopter, helicopter.helicopterDirection);
             }
 
-            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !helicopterLanded) {
+            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !helicopter.helicopterLanded) {
                 // helicopter.y += 5;
-                this.moveDown(helicopter, helicopterDirection, helicopterLanded);
+                this.moveDown(helicopter, helicopter.helicopterDirection, helicopter.helicopterLanded);
             }
         } else {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {

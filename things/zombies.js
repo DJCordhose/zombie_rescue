@@ -106,6 +106,9 @@ Zombies.prototype.turnAround = function (zombie) {
 };
 
 Zombies.prototype.pickUp = function (helicopter, zombie) {
+    if (!helicopter.helicopterLanded) {
+        return;
+    }
     this.sayHello();
     zombie.kill();
     score += 1;
