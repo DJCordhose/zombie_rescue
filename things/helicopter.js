@@ -15,5 +15,8 @@ var createHelicopter = function () {
     helicopter.animations.add('right', [3, 4], 10, true);
     helicopter.animations.play('left');
 
+    helicopter.helicopterLanded = false;
+    helicopter.helicopterDirection = 'left';
+
     game.camera.follow(helicopter);
 }

@@ -1,8 +1,8 @@
-var tank;
-
 var createTanks = function () {
-    tank = new Tank(game, helicopter, 200, game.height - 50);
-    game.add.existing(tank);
+    for (var i=0; i < 10; i++) {
+        var tank = new Tank(game, helicopter, i * 1000 + 100, game.height - 50);
+        game.add.existing(tank);
+    }
 }
 
 function Tank(game, helicopter, x, y) {
@@ -20,7 +20,7 @@ function Tank(game, helicopter, x, y) {
     this.frame = 2;
 
     var timer = game.time.create(false);
-    timer.loop(1000, Tank.prototype.shoot, this);
+    timer.loop(2000, Tank.prototype.shoot, this);
     timer.start();
 }
 Tank.prototype = Object.create(Phaser.Sprite.prototype);
