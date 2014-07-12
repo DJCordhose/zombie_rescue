@@ -3,7 +3,7 @@ var Home = function (position) {
     };
 
 Home.prototype.build = function (position) {
-    var building = game.add.sprite(position, this.getGround(), 'base');
+    var building = game.add.sprite(position, this.getGround(), 'home');
 
     building.anchor.setTo(0.5, 0.5);
     building.checkWorldBounds = true;
