@@ -40,7 +40,6 @@ var main_state = {
 
         if (!isGameOver) {
             game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
-
             game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
 
 
