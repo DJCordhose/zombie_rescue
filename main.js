@@ -26,7 +26,7 @@ var main_state = {
         introText.visible = false;
 
         var currentLevelText = 'Level: ' + currentLevel;
-        levelText = game.add.text(game.world.width/5*3, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
+        levelText = game.add.text(100, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         levelText.anchor.setTo(0.5, 0.5);
         levelText.visible = true;
 
@@ -41,11 +41,28 @@ var main_state = {
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
         game.state.start('main');
+
+        var sfx = game.add.audio('sfx');
+        sfx.addMarker('alien death', 1, 1.0);
+        sfx.addMarker('boss hit', 3, 0.5);
+        sfx.addMarker('escape', 4, 3.2);
+        sfx.addMarker('meow', 8, 0.5);
+        sfx.addMarker('numkey', 9, 0.1);
+        sfx.addMarker('ping', 10, 1.0);
+        sfx.addMarker('death', 12, 4.2);
+        sfx.addMarker('shot', 17, 1.0);
+        sfx.addMarker('squit', 19, 0.3);
+
+        this.sfx = sfx;
+
     },
 
     update: function () {
 
         if (!isGameOver) {
+
+            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
+
 
             moveZombie();
 
@@ -65,15 +82,25 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-
-                resetFrog(frog);
             }
         }
     },
 
     render: function () {
-        game.debug.cameraInfo(game.camera, 32, 32);
-        game.debug.spriteCoords(helicopter, 32, 500);    }
+        if (showDebugInfos) {
+            game.debug.cameraInfo(game.camera, 32, 32);
+            game.debug.spriteCoords(helicopter, 32, 500);
+        }
+        // TODO: How do I display text at a fixed position without using debug?
+        game.debug.start(20, 20, undefined, 100);
+        game.debug.line('Aua');
+
+        game.debug.stop();
+
+    },
+    helicopterZombieCollision: function (helicopter, zombie) {
+        this.sfx.play('ping');
+    }
 }
 
 function moveZombie() {
