@@ -36,19 +36,12 @@ var main_state = {
         sfx.addMarker('squit', 19, 0.3);
 
         this.sfx = sfx;
-
-        this.zombieAudio = game.add.audio('zombie_audio');
-        this.zombieAudio.addMarker('growl', 0.7, 1.9);
-
-        this.zombieAudio.play('growl');
-
     },
 
     update: function () {
 
         if (!isGameOver) {
-            game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
-            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
+            game.physics.arcade.overlap(helicopter, zombies, zombiePickedUp, null, this);
 
             moveZombie();
 
@@ -82,35 +75,7 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
-            } 
+            }
         }
-    },
-
-    helicopterZombieCollision: function (helicopter, zombie) {
-        this.sfx.play('ping');
-        this.zombieAudio.play('growl');
     }
-}
-
-function moveZombie() {
-    if (helicopter.y > game.height - 50) {
-        if (zombie.x < helicopter.x) {
-            zombie.body.velocity.x = 50;
-        } else if (zombie.x > helicopter.x) {
-            zombie.body.velocity.x = -50;
-        }
-    } else {
-    if (zombie.x < 100) {
-        zombie.x = 110;
-        zombie.body.velocity.x = zombie.body.velocity.x * -1;
-    } else if (zombie.x > 700) {
-        zombie.x = 690;
-        zombie.body.velocity.x = zombie.body.velocity.x * -1;
-    }
-}
-}
-
-function zombiePickedUp() {
-    zombie.kill();
-    score += 1;
 }
