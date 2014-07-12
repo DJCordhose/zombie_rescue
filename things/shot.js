@@ -26,6 +26,12 @@ Shot.prototype.update = function () {
 };
 
 Shot.prototype.helicopterHit = function (shot, helicopter) {
-    helicopter.kill();
+    shot.kill();
+    lives -= 1;
+
+    if (lives === 0) {
+        helicopter.kill();
+        isGameOver = true;
+    }
 };
 
