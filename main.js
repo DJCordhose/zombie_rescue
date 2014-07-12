@@ -1,14 +1,9 @@
-var helicopter;
-var zombie;
-var introText;
-var levelText;
-var lifesText;
 var isGameOver = false;
-
 var showDebugInfos = false;
 
 var currentLevel = 7;
-var lifes = 3;
+var score = 0;
+var lives = 3;
 
 // And now we define our first and only state, I'll call it 'main'. A state is a specific scene of a game like a menu, a game over screen, etc.
 var main_state = {
@@ -17,54 +12,37 @@ var main_state = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.setBoundsToWorld();
         game.add.tileSprite(0, 0, 12000, 600, 'background');
-        var helicopterYPosition = game.height / 2;
-        var helicopterXPosition = game.width / 2;
-        helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
-        helicopter.anchor.setTo(0.5, 0.5);
-        helicopter.checkWorldBounds = true;
-        game.physics.enable(helicopter, Phaser.Physics.ARCADE);
-        helicopter.body.checkCollision.any = true;
-        helicopter.body.collideWorldBounds = true;
-        helicopter.body.setSize(100, 100);
 
-        var zombieXPosition = game.width / 2;
-        zombie = game.add.sprite(zombieXPosition, game.height - 50, 'zombie');
-        zombie.anchor.setTo(0.5, 0.5);
-        zombie.checkWorldBounds = true;
-        game.physics.enable(zombie, Phaser.Physics.ARCADE);
-        zombie.body.velocity.x = -100;
-        zombie.body.checkCollision.any = true;
-        zombie.body.collideWorldBounds = true;
-        zombie.body.setSize(100, 100);
-
-        introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
-        introText.anchor.setTo(0.5, 0.5);
-        introText.visible = false;
-
-        var currentLevelText = 'Level: ' + currentLevel;
-        levelText = game.add.text(game.world.width/5*3, 20, currentLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
-        levelText.anchor.setTo(0.5, 0.5);
-        levelText.visible = true;
-
-        var lifeLevelText = 'Lifes: ' + lifes;
-        lifesText = game.add.text(game.world.width/5*4, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
-        lifesText.anchor.setTo(0.5, 0.5);
-        lifesText.visible = true;
-
-         // No 'this.score', but just 'score'
-        score = 0;
-
-        game.camera.follow(helicopter);
+        createHelicopter();
+        createZombies();
+        createTexts();
 
         // And finally we tell Phaser to add and start our 'main' state
         game.state.add('main', main_state);
         game.state.start('main');
+
+        var sfx = game.add.audio('sfx');
+        sfx.addMarker('alien death', 1, 1.0);
+        sfx.addMarker('boss hit', 3, 0.5);
+        sfx.addMarker('escape', 4, 3.2);
+        sfx.addMarker('meow', 8, 0.5);
+        sfx.addMarker('numkey', 9, 0.1);
+        sfx.addMarker('ping', 10, 1.0);
+        sfx.addMarker('death', 12, 4.2);
+        sfx.addMarker('shot', 17, 1.0);
+        sfx.addMarker('squit', 19, 0.3);
+
+        this.sfx = sfx;
+
     },
 
     update: function () {
 
         if (!isGameOver) {
             game.physics.arcade.overlap(helicopter, zombie, zombiePickedUp, null, this);
+
+            game.physics.arcade.collide(helicopter, zombie, this.helicopterZombieCollision, null, this);
+
 
             moveZombie();
 
@@ -84,16 +62,13 @@ var main_state = {
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 isGameOver = false;
                 introText.visible = false;
+            }
+        }
     },
 
-    render: function () {
-        if (showDebugInfos) {
-            game.debug.body(helicopter);
-            game.debug.spriteInfo(helicopter);
-        game.debug.cameraInfo(game.camera, 32, 32);
-        game.debug.spriteCoords(helicopter, 32, 500);   
+    helicopterZombieCollision: function (helicopter, zombie) {
+        this.sfx.play('ping');
     }
-}
 }
 
 function moveZombie() {
@@ -105,7 +80,7 @@ function moveZombie() {
         }
     } else {
     if (zombie.x < 100) {
-        zombie.x = 110; 
+        zombie.x = 110;
         zombie.body.velocity.x = zombie.body.velocity.x * -1;
     } else if (zombie.x > 700) {
         zombie.x = 690;

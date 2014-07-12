@@ -4,6 +4,9 @@ var load_state = {
         game.load.image('helicopter', 'assets/helicopter.png');
         game.load.image('zombie', 'assets/zombie.png');
         game.load.image('background', 'assets/bg.png');
+
+        game.load.audio('sfx', [ 'assets/sounds/fx_mixdown.mp3', 'assets/sounds/fx_mixdown.ogg' ], true);
+
     },
 
     create: function() {
