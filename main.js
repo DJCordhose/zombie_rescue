@@ -18,12 +18,8 @@ var main_state = {
     create: function () {
         game.world.setBounds(0, 0, 12000, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-<<<<<<< HEAD
-    
-=======
-        game.physics.setBoundsToWorld();
 
->>>>>>> 59b19d1fe01fadc05b38171313e6660db5968ed2
+        game.physics.setBoundsToWorld();
         var helicopterYPosition = game.height / 2;
         var helicopterXPosition = game.width / 2;
         helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
@@ -58,7 +54,7 @@ var main_state = {
         rescueText.anchor.setTo(0.5, 0.5);
         rescueText.visible = true;
 
-        var lifeLevelText = 'Lifes: ' + lifes;
+        var lifeLevelText = 'Lives: ' + lifes;
         lifesText = game.add.text(game.world.width/7*6, 20, lifeLevelText, { font: "18px Arial", fill: "#ffffff", align: "center" });
         lifesText.anchor.setTo(0.5, 0.5);
         lifesText.visible = true;
