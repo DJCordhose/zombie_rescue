@@ -1,3 +1,5 @@
+var helicopter;
+
 var createHelicopter = function () {
     var helicopterYPosition = game.height / 2,
         helicopterXPosition = game.width / 2;

@@ -1,5 +1,3 @@
-var helicopter;
-var zombie;
 var introText;
 var levelText;
 var lifesText;
@@ -21,16 +19,7 @@ var main_state = {
         game.add.tileSprite(0, 0, 12000, 600, 'background');
 
         createHelicopter();
-
-        var zombieXPosition = game.width / 2;
-        zombie = game.add.sprite(zombieXPosition, game.height - 50, 'zombie');
-        zombie.anchor.setTo(0.5, 0.5);
-        zombie.checkWorldBounds = true;
-        game.physics.enable(zombie, Phaser.Physics.ARCADE);
-        zombie.body.velocity.x = -100;
-        zombie.body.checkCollision.any = true;
-        zombie.body.collideWorldBounds = true;
-        zombie.body.setSize(37, 37);
+        createZombies();
 
         introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
         introText.anchor.setTo(0.5, 0.5);
