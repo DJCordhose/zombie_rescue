@@ -94,6 +94,7 @@ var main_state = {
         game.debug.spriteCoords(helicopter, 32, 500);   
     }
 }
+}
 
 function moveZombie() {
     if (helicopter.y > game.height - 50) {
