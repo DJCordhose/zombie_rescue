@@ -53,10 +53,12 @@ Zombies.prototype.spawn = function () {
     zombie.body.collideWorldBounds = true;
     zombie.body.setSize(48, 48);
 
-    zombie.animations.add('left', [0, 1], 10, true);
-    zombie.animations.add('right', [0, 1], 10, true);
-    zombie.animations.add('standing', [0, 1], 10, true);
-    zombie.animations.add('standing', [0, 1], 10, true);
+    zombie.animations.add('left', [0, 1, 2, 3], 10, true);
+    zombie.animations.add('right', [6, 7, 8, 9], 10, true);
+    zombie.animations.add('standing', [5] , 10, true);
+    zombie.animations.add('dead', [6], 10, true);
+
+    zombie.animations.play('left');
 };
 
 Zombies.prototype.move = function () {
@@ -71,8 +73,11 @@ Zombies.prototype.move = function () {
 Zombies.prototype.moveToHelicopter = function (zombie) {
     if (zombie.x < helicopter.x) {
         zombie.body.velocity.x = 50;
+        zombie.animations.play('right');
+
     } else if (zombie.x > helicopter.x) {
         zombie.body.velocity.x = -50;
+        zombie.animations.play('left');
     }
 };
 
@@ -86,10 +91,12 @@ Zombies.prototype.moveRandomly = function (zombie) {
 
     if (zombie.x < this.limits.left) {
         zombie.x = this.limits.left + 10;
+        zombie.animations.play('right');
     }
 
     if (zombie.x > this.limits.right) {
         zombie.x = this.limits.right - 10;
+        zombie.animations.play('left');
     }
 
     this.turnAround(zombie);

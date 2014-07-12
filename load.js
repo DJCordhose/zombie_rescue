@@ -3,7 +3,7 @@ var load_state = {
         this.game.stage.backgroundColor = '#71c5cf';
         game.load.spritesheet('helicopter', 'assets/heli_map96x48.png', 96, 48);
         game.load.spritesheet('tank', 'assets/tank_map96x48.png', 96, 48);
-        game.load.spritesheet('zombie', 'assets/zombie_map48x48.png', 48, 48);
+        game.load.spritesheet('zombie', 'assets/zombi_map48x48.png', 48, 48);
         game.load.image('plane', 'assets/plane.png');
         game.load.image('base', 'assets/basis.png');
         game.load.image('home', 'assets/home.png');
