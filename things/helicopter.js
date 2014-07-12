@@ -4,7 +4,7 @@ var createHelicopter = function () {
     var helicopterYPosition = game.height / 2;
     var helicopterXPosition = game.width / 2;
 
-    helicopter = game.add.sprite(helicopterXPosition, helicopterYPosition, 'helicopter');
+    helicopter = game.add.sprite(game.world.width * 2 / 5, helicopterYPosition, 'helicopter');
     helicopter.anchor.setTo(0.5, 0.5);
     helicopter.checkWorldBounds = true;
     game.physics.enable(helicopter, Phaser.Physics.ARCADE);
