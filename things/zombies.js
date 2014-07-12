@@ -52,6 +52,11 @@ Zombies.prototype.spawn = function () {
     zombie.body.checkCollision.any = true;
     zombie.body.collideWorldBounds = true;
     zombie.body.setSize(48, 48);
+
+    zombie.animations.add('left', [0, 1], 10, true);
+    zombie.animations.add('right', [0, 1], 10, true);
+    zombie.animations.add('standing', [0, 1], 10, true);
+    zombie.animations.add('standing', [0, 1], 10, true);
 };
 
 Zombies.prototype.move = function () {
