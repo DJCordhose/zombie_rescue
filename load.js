@@ -6,6 +6,7 @@ var load_state = {
         game.load.image('background', 'assets/bg.png');
 
         game.load.audio('sfx', [ 'assets/sounds/fx_mixdown.mp3', 'assets/sounds/fx_mixdown.ogg' ], true);
+        game.load.audio('zombie_audio', [ 'assets/sounds/zombie.mp3', 'assets/sounds/zombie.ogg' ], true);
 
     },
 

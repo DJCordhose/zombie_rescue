@@ -34,6 +34,11 @@ var main_state = {
 
         this.sfx = sfx;
 
+        this.zombieAudio = game.add.audio('zombie_audio');
+        this.zombieAudio.addMarker('growl', 0.7, 1.9);
+
+        this.zombieAudio.play('growl');
+
     },
 
     update: function () {
@@ -67,6 +72,7 @@ var main_state = {
 
     helicopterZombieCollision: function (helicopter, zombie) {
         this.sfx.play('ping');
+        this.zombieAudio.play('growl');
     }
 }
 
