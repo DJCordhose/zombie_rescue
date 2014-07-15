@@ -10,7 +10,8 @@ function Shot(game, origin, helicopter, x, y, angle) {
     this.origin = origin;
     this.body.velocity.x = Math.cos(angle) * SHOT_SPEED;
     this.body.velocity.y = Math.sin(angle) * SHOT_SPEED;
-    this.body.angle = angle;
+    this.body.angle = angle + (Math.PI / 2);
+    console.log(angle);
 }
 
 Shot.prototype = Object.create(Phaser.Sprite.prototype);
@@ -21,7 +22,7 @@ Shot.prototype.update = function () {
 
     var distanceX = Math.abs(this.origin.x - this.x);
     if (distanceX >= game.camera.width / 2) {
-        var explosion = new Explosion(game, helicopter, helicopter.x, helicopter.y);
+        var explosion = new Explosion(game, this, this.x, this.y);
         game.add.existing(explosion);
     }
 };
